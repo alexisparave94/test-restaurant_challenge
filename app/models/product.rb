@@ -4,7 +4,7 @@ class Product < ApplicationRecord
 
   after_save :add_global_product_to_all_menus
 
-  enum :kind, %i[starter main_course salad soup dessert drink]
+  enum :category, %i[starter main_course salad soup dessert drink]
 
   def add_global_product_to_all_menus
     return unless global

@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :first_name
       t.string :last_name
       t.string :email
-      t.integer :role # It has to be a default value??
+      t.integer :role, default: 0
       t.datetime :discarded_at
 
       t.timestamps

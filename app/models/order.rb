@@ -6,5 +6,5 @@ class Order < ApplicationRecord
   has_many :order_lines, dependent: :destroy
   has_many :menu_items, through: :order_lines
 
-  enum :role, %i[waiting pending completed]
+  enum :status, %i[open confirmed completed canceled]
 end
