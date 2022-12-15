@@ -1,7 +1,7 @@
 ## Schema
 
 - All remove should be soft delete(discarded)
-- Review defauld values
+- Review default values
 
 ### Create user Table
   - Discarded_at is a datetime and have and index see docs, check
@@ -12,8 +12,8 @@ rails g model User first_name last_name email role:integer discarded_at:datetime
 
 
 ## Create product Table
-  - Name uniq?
-  - Global should have a default value?
+  - Name uniq check
+  - Global should have a default value, false , check
   - When create a global product, it must be added automatically to all restaurant's menu items (callback?)
   - Type is a reserve word we have to change
 ```console
@@ -21,8 +21,8 @@ rails g model Product name:uniq price:integer category:integer discarded_at:date
 ```
 
 ### Create restaurant Table
-  - When create a restaurant manager could be null? check
-  - Dependent in my opinion nullify, this justiify the null manager? check
+  - When create a restaurant manager could be null check
+  - Dependent in my opinion nullify, this justiify the null manager check
   - When create a restaurant, global products should be added automatically to restaurant's menu items (callback?)
 ```console
 rails g model Restaurant manager:references address city country phone
@@ -63,7 +63,11 @@ rails g model Order client:references waiter:references restaurant:references to
 
 ### Create order_line Table
   - When delete a product the item menu it is going to be delete the order line should be delete also.
-  - Review the workflow to submit and order.
+  - Review the workflow to submit and order. clear
 ```console
 rails g model OrderLine order:references menu_item:references quantity:integer price:integer total:integer
 ```
+
+## Consulting
+  - About dependent in associations, because of the soft delete
+  - I am continue having doubts about the price here. consult with Carlos and Diego
