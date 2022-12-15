@@ -17,8 +17,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_094335) do
   create_table "menu_items", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "restaurant_id", null: false
-    t.integer "price"
-    t.integer "stock"
+    t.integer "price", default: 0
+    t.integer "stock", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_menu_items_on_product_id"
@@ -28,9 +28,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_094335) do
   create_table "order_lines", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.bigint "menu_item_id"
-    t.integer "quantity"
-    t.integer "price"
-    t.integer "total"
+    t.integer "quantity", default: 0
+    t.integer "price", default: 0
+    t.integer "total", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["menu_item_id"], name: "index_order_lines_on_menu_item_id"
@@ -38,30 +38,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_094335) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.bigint "waiter_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "waiter_id"
     t.bigint "restaurant_id", null: false
-    t.integer "total"
+    t.integer "total", default: 0
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
     t.index ["waiter_id"], name: "index_orders_on_waiter_id"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "sku"
     t.string "name"
-    t.integer "price"
-    t.integer "kind"
+    t.integer "price", default: 0
+    t.integer "category"
     t.datetime "discarded_at"
-    t.boolean "global"
+    t.boolean "global", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_products_on_discarded_at"
     t.index ["name"], name: "index_products_on_name", unique: true
-    t.index ["sku"], name: "index_products_on_sku", unique: true
   end
 
   create_table "restaurant_staffs", force: :cascade do |t|
@@ -90,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_094335) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.integer "role"
+    t.integer "role", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -102,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_094335) do
   add_foreign_key "order_lines", "menu_items"
   add_foreign_key "order_lines", "orders"
   add_foreign_key "orders", "restaurants"
-  add_foreign_key "orders", "users", column: "client_id"
+  add_foreign_key "orders", "users", column: "customer_id"
   add_foreign_key "orders", "users", column: "waiter_id"
   add_foreign_key "restaurant_staffs", "restaurants"
   add_foreign_key "restaurant_staffs", "users", column: "waiter_id"
