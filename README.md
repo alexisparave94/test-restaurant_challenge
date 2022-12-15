@@ -18,7 +18,7 @@ rails g model User first_name last_name email role:integer discarded_at:datetime
   - When create a global product, it must be added automatically to all restaurant's menu items (callback?)
   - Type is a reserve word we have to change
 ```console
-rails g model Product sku:uniq name:uniq price:integer type:integer discarded_at:datetime:index global:boolean
+rails g model Product sku:uniq name:uniq price:integer kind:integer discarded_at:datetime:index global:boolean
 ```
 
 ### Create restaurant Table
